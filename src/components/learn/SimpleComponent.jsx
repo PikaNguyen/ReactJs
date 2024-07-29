@@ -1,12 +1,21 @@
 // component = html + css + js
+
+import './style.css'
+
 const MyComponent = () => {
     return (
-        <div>
-            <h3>
-                This is h3
-            </h3>
-            OOi ban oi - ReactJs
-        </div>
+        //Fragment mảnh vỡ, nhỏ
+        <>
+            <div className="divClass">
+                OOi ban oi - ReactJs
+                <div className="childDiv"
+                    style={
+                        { borderRadius: "50px" }
+                    }
+                >Content with color</div>
+            </div>
+        </>
+
     );
 }
 

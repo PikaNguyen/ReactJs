@@ -2,18 +2,8 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-
-// component = html + css + js
-const MyComponent = () => {
-  return (
-    <div>
-      <h3>
-        This is h3
-      </h3>
-      OOi ban oi - ReactJs
-    </div>
-  );
-}
+import MyComponent from './components/learn/SimpleComponent.jsx'
+import { AnotherComponent, FunctionTwo } from './components/learn/AnotherComponent.jsx'
 
 const App = () => {
   const [count, setCount] = useState(0)
@@ -28,7 +18,7 @@ const App = () => {
         </a>
       </div>
       <h1>Hello world</h1>
-      <MyComponent></MyComponent>
+      <AnotherComponent />
       <MyComponent />
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
@@ -39,6 +29,7 @@ const App = () => {
         </p>
       </div>
       <p className="read-the-docs">
+        <FunctionTwo />
         Click on the Vite and React logos to learn more
       </p>
     </>

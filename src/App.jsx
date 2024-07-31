@@ -4,11 +4,23 @@ import './components/todo/todo.css'
 import imgUploadFromUser from './assets/wl-op-26se.jpg'
 
 const App = () => {
+
+  const parent = "Parent property"
+  const age = 100
+  const address = {
+    provine: "lam đồng",
+    city: "đà lạt"
+  }
+  //object{key:value}
   return (
     <div className="todo-container">
       <div className="todo-title">Todo list </div>
       <TodoAddNew />
-      <TodoDisplayData />
+      <TodoDisplayData
+        name={parent}
+        age={age}
+        address={address}
+      />
       <div className='todo-image'>
         <img src={imgUploadFromUser} className='img-upload' />
       </div>

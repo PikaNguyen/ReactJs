@@ -1,0 +1,42 @@
+.todo-title {
+    font-size: 30px;
+    color: green;
+}
+
+.todo-container {
+    margin: 150px auto;
+    width: 400px;
+    align-items: center;
+}
+
+.button-add {
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px;
+    background-color: blue;
+    color: darkorange;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.todo-image {
+    text-align: center;
+    margin-top: 15px;
+    width: 50px;
+    height: 30px;
+}
+
+.img-upload {
+    width: 500px;
+    height: auto;
+}
+
+.todo-data {
+    font-size: large;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    padding: 15px;
+    display: flex;
+    margin-top: 10px;
+    gap: 15px;
+}

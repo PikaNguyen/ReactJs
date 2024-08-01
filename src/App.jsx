@@ -11,15 +11,25 @@ const App = () => {
     provine: "lam đồng",
     city: "đà lạt"
   }
+  const addNewTodo = (param) => {
+    alert(`Declare alert - My value's input: ${param}- Alert: When entering web this pop up show message`)
+
+
+  }
+
   //object{key:value}
   return (
     <div className="todo-container">
       <div className="todo-title">Todo list </div>
-      <TodoAddNew />
+      <TodoAddNew
+        addNewTodo={addNewTodo}
+      />
+
       <TodoDisplayData
         name={parent}
         age={age}
         address={address}
+
       />
       <div className='todo-image'>
         <img src={imgUploadFromUser} className='img-upload' />

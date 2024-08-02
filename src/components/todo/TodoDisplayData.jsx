@@ -10,6 +10,9 @@ const TodoDisplayData = (props) => {
             <div>Learning Reactjs {name}</div>
             <div>Learning Oibanoi: Address: {props.name}</div>
             <div>Learning 222 -- Age: {age}</div>
+            <div>
+                {JSON.stringify(props.todoList)}
+            </div>
         </div>
     )
 }

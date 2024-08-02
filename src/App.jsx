@@ -17,9 +17,11 @@ const App = () => {
     city: "đà lạt"
   }
   const addNewTodo = (param) => {
-    alert(`Declare alert - My value's input: ${param}- Alert: When entering web this pop up show message`)
-
-
+    const newObjectThree = {
+      id: crypto.randomUUID(),// New Guid
+      name: param
+    }
+    setTodoList([...todoList, newObjectThree])
   }
 
   //object{key:value}
@@ -29,7 +31,6 @@ const App = () => {
       <TodoAddNew
         addNewTodo={addNewTodo}
       />
-
       <TodoDisplayData
         name={parent}
         age={age}

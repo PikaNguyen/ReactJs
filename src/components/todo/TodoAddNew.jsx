@@ -11,6 +11,7 @@ const TodoAddNew = (props) => {
     //addNewTodo("PARAM Input form user")
 
     const handleClick = () => {
+        addNewTodo(valueInput)
         console.log("Check value input", valueInput)
     }
 

@@ -3,6 +3,11 @@
     color: green;
 }
 
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+}
+
 .todo-container {
     margin: 150px auto;
     width: 400px;

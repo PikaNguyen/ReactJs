@@ -13,6 +13,7 @@ const TodoAddNew = (props) => {
     const handleClick = () => {
         addNewTodo(valueInput)
         console.log("Check value input", valueInput)
+        setValueInput("")
     }
 
     const printHandleOnChange = (name) => {
@@ -21,9 +22,11 @@ const TodoAddNew = (props) => {
 
     return (
         <div>
-            <input type="text"
+            <input
+                type="text"
                 //want to pass param into func --> Need to using arrow func
                 onChange={(event) => printHandleOnChange(event.target.value)}
+                value={valueInput}
 
                 placeholder='Enter your task' />
             <button className='button-add'

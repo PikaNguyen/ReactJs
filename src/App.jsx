@@ -25,12 +25,16 @@ const App = () => {
       <TodoAddNew
         addNewTodo={addNewTodo}
       />
-      <TodoDisplayData
-        todoList={todoList}
-      />
-      <div className='todo-image'>
-        <img src={imgUploadFromUser} className='img-upload' />
-      </div>
+      {todoList.length > 0 ?
+        <TodoDisplayData
+          todoList={todoList}
+        />
+        :
+        <div className='todo-image'>
+          <img src={imgUploadFromUser} className='img-upload' />
+        </div>
+      }
+
     </div>
 
   )

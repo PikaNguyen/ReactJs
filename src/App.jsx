@@ -7,15 +7,9 @@ import { useState } from 'react'
 const App = () => {
 
   const [todoList, setTodoList] = useState([
-    { id: 1, name: "KhaBanh" },
-    { id: 2, name: "Dan choi" }
+    //{ id: 1, name: "KhaBanh" },
+    //{ id: 2, name: "Dan choi" }
   ])
-  const parent = "Parent property"
-  const age = 100
-  const address = {
-    provine: "lam đồng",
-    city: "đà lạt"
-  }
   const addNewTodo = (param) => {
     const newObjectThree = {
       id: crypto.randomUUID(),// New Guid
@@ -32,9 +26,6 @@ const App = () => {
         addNewTodo={addNewTodo}
       />
       <TodoDisplayData
-        name={parent}
-        age={age}
-        address={address}
         todoList={todoList}
       />
       <div className='todo-image'>

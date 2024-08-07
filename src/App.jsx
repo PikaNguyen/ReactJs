@@ -18,6 +18,11 @@ const App = () => {
     setTodoList([...todoList, newObjectThree])
   }
 
+  const deleteItem = (id) => {
+    const result = todoList.filter((item) => item.id !== id)
+    setTodoList(result)
+  }
+
   //object{key:value}
   return (
     <div className="todo-container">
@@ -28,6 +33,7 @@ const App = () => {
       {todoList.length > 0 ?
         <TodoDisplayData
           todoList={todoList}
+          deleteItem={deleteItem}
         />
         :
         <div className='todo-image'>

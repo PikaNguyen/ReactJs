@@ -3,6 +3,8 @@ import TodoDisplayData from './components/todo/TodoDisplayData'
 import './components/todo/todo.css'
 import imgUploadFromUser from './assets/wl-op-26se.jpg'
 import { useState } from 'react'
+import Header from './components/layout/header'
+import Footer from './components/layout/footer'
 
 const App = () => {
 
@@ -25,24 +27,27 @@ const App = () => {
 
   //object{key:value}
   return (
-    <div className="todo-container">
-      <div className="todo-title">Todo list </div>
-      <TodoAddNew
-        addNewTodo={addNewTodo}
-      />
-      {todoList.length > 0 ?
-        <TodoDisplayData
-          todoList={todoList}
-          deleteItem={deleteItem}
+    <>
+      <Header />
+      <div className="todo-container">
+        <div className="todo-title">Todo list </div>
+        <TodoAddNew
+          addNewTodo={addNewTodo}
         />
-        :
-        <div className='todo-image'>
-          <img src={imgUploadFromUser} className='img-upload' />
-        </div>
-      }
+        {todoList.length > 0 ?
+          <TodoDisplayData
+            todoList={todoList}
+            deleteItem={deleteItem}
+          />
+          :
+          <div className='todo-image'>
+            <img src={imgUploadFromUser} className='img-upload' />
+          </div>
+        }
 
-    </div>
-
+      </div>
+      <Footer />
+    </>
   )
 }
 

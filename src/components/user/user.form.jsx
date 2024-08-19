@@ -1,6 +1,6 @@
 import { Button, Input } from "antd"
 import { useState } from "react"
-
+import axios from "axios"
 
 const UserForm = () => {
 
@@ -11,6 +11,14 @@ const UserForm = () => {
 
 
     const handleClickButton = () => {
+        const URL_BACKEND = "http://localhost:8080/api/v1/user"
+        const data = {
+            fullName: fullName,
+            email: email,
+            password: password,
+            phone: phoneNumber
+        }
+        axios.post(URL_BACKEND, data)
         console.log(">>>Check info Name:", { fullName, email, password })
     }
 

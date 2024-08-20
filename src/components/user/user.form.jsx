@@ -19,6 +19,12 @@ const UserForm = () => {
                 description: "Create user successfully"
             })
         }
+        else {
+            notification.error({
+                message: "Error: Create user failed",
+                description: JSON.stringify(response.message)
+            })
+        }
 
         console.log(">>>Check info Name:", { fullName, email, password })
     }

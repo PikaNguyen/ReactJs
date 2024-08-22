@@ -13,6 +13,11 @@ const createUserAPI = (fullName, email, password, phoneNumber) => {
 
 }
 
+const fetchAllUsersApi = () => {
+    const URL_BACKEND = "/api/v1/user"
+    return axios.get(URL_BACKEND)
+}
+
 export {
-    createUserAPI
+    createUserAPI, fetchAllUsersApi
 }

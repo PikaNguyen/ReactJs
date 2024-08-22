@@ -1,54 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Space, Table, Tag } from 'antd';
+import { fetchAllUsersApi } from '../../services/api.service';
 
 const UserTable = () => {
+    const [dataUsers, setDataUsers] = useState([
+        { _id: 1, fullName: "Dan choi", email: "DL" }
+
+    ])
+
+    useEffect(() => {
+        console.log(">>Run use effect 444")
+        loadUser()
+    }, [])
+
     const columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
+            title: 'Id',
+            dataIndex: '_id',
+        },
+        {
+            title: 'Full Name',
+            dataIndex: 'fullName',
             render: (text) => <a>{text}</a>,
         },
         {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
+            title: 'Email',
+            dataIndex: 'email',
         },
-        {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'Tags',
-            key: 'tags',
-            dataIndex: 'tags',
-            render: (_, { tags }) => (
-                <>
-                    {tags.map((tag) => {
-                        let color = tag.length > 5 ? 'geekblue' : 'green';
-                        if (tag === 'loser') {
-                            color = 'volcano';
-                        }
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
-                </>
-            ),
-        },
-        {
-            title: 'Action',
-            key: 'action',
-            render: (_, record) => (
-                <Space size="middle">
-                    <a>Invite {record.name}</a>
-                    <a>Delete</a>
-                </Space>
-            ),
-        },
+
     ];
     const data = [
         {
@@ -74,8 +53,16 @@ const UserTable = () => {
         },
     ];
 
+    const loadUser = async () => {
+        console.log("Vao api load")
+        const res = await fetchAllUsersApi()
+        console.log(res.data)
+        setDataUsers(res.data)
+    }
+
     return (
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={dataUsers} rowKey={"_id"} />
+
     )
 
 }

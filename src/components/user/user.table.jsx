@@ -3,10 +3,7 @@ import { Space, Table, Tag } from 'antd';
 import { fetchAllUsersApi } from '../../services/api.service';
 
 const UserTable = () => {
-    const [dataUsers, setDataUsers] = useState([
-        { _id: 1, fullName: "Dan choi", email: "DL" }
-
-    ])
+    const [dataUsers, setDataUsers] = useState([])
 
     useEffect(() => {
         console.log(">>Run use effect 444")

@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Space, Table, Tag } from 'antd';
-import { fetchAllUsersApi } from '../../services/api.service';
 
-const UserTable = () => {
-    const [dataUsers, setDataUsers] = useState([])
 
-    useEffect(() => {
-        console.log(">>Run use effect 444")
-        loadUser()
-    }, [])
+const UserTable = (props) => {
 
+    const { dataUsers } = props
     const columns = [
         {
             title: 'Id',
@@ -50,12 +45,7 @@ const UserTable = () => {
         },
     ];
 
-    const loadUser = async () => {
-        console.log("Vao api load")
-        const res = await fetchAllUsersApi()
-        console.log(res.data)
-        setDataUsers(res.data)
-    }
+
 
     return (
         <Table columns={columns} dataSource={dataUsers} rowKey={"_id"} />

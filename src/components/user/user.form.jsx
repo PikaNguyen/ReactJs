@@ -3,8 +3,8 @@ import { useState } from "react"
 import axios from "axios"
 import { createUserAPI } from "../../services/api.service"
 
-const UserForm = () => {
-
+const UserForm = (props) => {
+    const { loadUser } = props
     const [fullName, setFullName] = useState()
     const [password, setPassword] = useState()
     const [email, setEmail] = useState()
@@ -18,7 +18,8 @@ const UserForm = () => {
                 message: "Create user",
                 description: "Create user successfully"
             })
-            setIsModalOpen(false)
+            resetAndCloseModel()
+            await loadUser()
         }
         else {
             notification.error({
@@ -28,6 +29,14 @@ const UserForm = () => {
         }
 
         console.log(">>>Check info Name:", { fullName, email, password })
+    }
+
+    const resetAndCloseModel = () => {
+        setIsModalOpen(false)
+        setFullName("")
+        setPassword("")
+        setEmail("")
+        setPhoneNumber("")
     }
 
     return (
@@ -42,7 +51,7 @@ const UserForm = () => {
             <Modal title="Create User"
                 open={isModalOpen}
                 onOk={() => handleClickSubmit()}
-                onCancel={() => setIsModalOpen(false)}
+                onCancel={() => resetAndCloseModel()}
                 maskClosable={false}
             >
                 <div style={{ display: "flex", gap: "17px", flexDirection: "column" }}>

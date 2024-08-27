@@ -5,7 +5,9 @@ import UpdateUserModal from './update.user.form.jsx'
 
 const UserTable = (props) => {
 
-    const { dataUsers } = props
+    const { dataUsers, loadUser } = props
+    const [isModalUpdate, setIsModalUpdate] = useState(false)
+    const [dataUpdate, setDataUpdate] = useState(null)
     const columns = [
         {
             title: 'Id',
@@ -30,38 +32,18 @@ const UserTable = (props) => {
             key: 'action',
             render: (_, record) => (
                 <div style={{ display: "flex", gap: "20px" }}>
-                    <a>Edit {record.name}</a>
+                    <a onClick={() => {
+                        setDataUpdate(record)
+                        setIsModalUpdate(true)
+                    }}>
+                        Edit {record.name}
+                    </a>
                     <DeleteFilled style={{ cursor: "pointer", color: "green" }} />
                 </div>
             ),
         },
 
     ];
-    const data = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-            tags: ['nice', 'developer'],
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-            tags: ['loser'],
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sydney No. 1 Lake Park',
-            tags: ['cool', 'teacher'],
-        },
-    ];
-
-
 
     return (
         <>
@@ -69,7 +51,12 @@ const UserTable = (props) => {
                 columns={columns}
                 dataSource={dataUsers}
                 rowKey={"_id"} />
-            <UpdateUserModal />
+            <UpdateUserModal
+                isModalUpdate={isModalUpdate}
+                setIsModalUpdate={setIsModalUpdate}
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+                loadUser={loadUser} />
         </>
 
     )

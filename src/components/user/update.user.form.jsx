@@ -1,23 +1,33 @@
 import { Button, Input, notification, Modal } from "antd"
-import { useState } from "react"
-import { createUserAPI } from "../../services/api.service"
+import { useEffect, useState } from "react"
+import { createUserAPI, updateUserAPI } from "../../services/api.service"
 
-const UpdateUserModal = () => {
+const UpdateUserModal = (props) => {
     const [fullName, setFullName] = useState()
-    const [password, setPassword] = useState()
-    const [email, setEmail] = useState()
+    const [id, setId] = useState()
     const [phoneNumber, setPhoneNumber] = useState()
-    const [isModalUpdate, setIsModalUpdate] = useState(true)
+
+    const { isModalUpdate, setIsModalUpdate, dataUpdate, setDataUpdate, loadUser } = props
+
+    //Giá trị trước khác giá trị sau thì sẽ useEffect
+    useEffect(() => {
+        console.log(">>>Check record UseEffect", dataUpdate);
+        if (dataUpdate) {
+            setId(dataUpdate._id)
+            setFullName(dataUpdate.fullName)
+            setPhoneNumber(dataUpdate.phone)
+        }
+    }, [dataUpdate])
 
     const handleClickSubmit = async () => {
-        const response = await createUserAPI(fullName, email, password, phoneNumber)
+        const response = await updateUserAPI(id, fullName, phoneNumber)
         if (response.data) {
             notification.success({
                 message: "Edit user",
                 description: "Edit user successfully"
             })
             resetAndCloseModel()
-            //await loadUser()
+            await loadUser()
         }
         else {
             notification.error({
@@ -32,13 +42,13 @@ const UpdateUserModal = () => {
     const resetAndCloseModel = () => {
         setIsModalUpdate(false)
         setFullName("")
-        setPassword("")
-        setEmail("")
+        setId("")
         setPhoneNumber("")
+        setDataUpdate(null)
     }
 
     return (
-        <Modal title="Create User"
+        <Modal title="Edit User"
             open={isModalUpdate}
             onOk={() => handleClickSubmit()}
             onCancel={() => resetAndCloseModel()}
@@ -46,24 +56,17 @@ const UpdateUserModal = () => {
         >
             <div style={{ display: "flex", gap: "17px", flexDirection: "column" }}>
                 <div>
+                    <span>Id</span>
+                    <Input
+                        value={id}
+                        disabled
+                    />
+                </div>
+                <div>
                     <span>Full Name</span>
                     <Input
                         value={fullName}
                         onChange={(event) => { setFullName(event.target.value) }}
-                    />
-                </div>
-                <div>
-                    <span>Email</span>
-                    <Input
-                        value={email}
-                        onChange={(event) => { setEmail(event.target.value) }}
-                    />
-                </div>
-                <div>
-                    <span>Password</span>
-                    <Input.Password
-                        value={password}
-                        onChange={(event) => { setPassword(event.target.value) }}
                     />
                 </div>
                 <div>

@@ -30,6 +30,11 @@ const fetchAllUsersApi = () => {
     return axios.get(URL_BACKEND)
 }
 
+const uploadFileImage = () => {
+    const URL_BACKEND = "/api/v1/file/upload"
+    return axios.post(URL_BACKEND)
+}
+
 export {
-    createUserAPI, fetchAllUsersApi, updateUserAPI
+    createUserAPI, fetchAllUsersApi, updateUserAPI, uploadFileImage
 }

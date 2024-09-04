@@ -1,20 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { Space, Table, Tag } from 'antd';
-import { DeleteColumnOutlined, DeleteFilled, UserDeleteOutlined } from '@ant-design/icons';
+import { useState } from 'react';
+import { Table, } from 'antd';
+import { DeleteFilled } from '@ant-design/icons';
 import UpdateUserModal from './update.user.form.jsx'
+import UserDetail from './user.detail.jsx';
 
 const UserTable = (props) => {
 
     const { dataUsers, loadUser } = props
     const [isModalUpdate, setIsModalUpdate] = useState(false)
     const [dataUpdate, setDataUpdate] = useState(null)
+    const [isOpenUserDetail, setOpenDataUserDetail] = useState(false)
+    const [dataUserDetail, setDataUserDetail] = useState(null)
     const columns = [
         {
             title: 'Id',
             dataIndex: '_id',
             render: (_, record) => {
                 return (
-                    <a>{record._id}</a>
+                    <a
+                        onClick={() => {
+                            setDataUserDetail(record)
+                            setOpenDataUserDetail(true)
+                        }}
+                    >{record._id}</a>
                 )
             }
         },
@@ -57,6 +65,12 @@ const UserTable = (props) => {
                 dataUpdate={dataUpdate}
                 setDataUpdate={setDataUpdate}
                 loadUser={loadUser} />
+            <UserDetail
+                dataUserDetail={dataUserDetail}
+                setDataUserDetail={setDataUserDetail}
+                isOpenUserDetail={isOpenUserDetail}
+                setOpenDataUserDetail={setOpenDataUserDetail}
+            />
         </>
 
     )

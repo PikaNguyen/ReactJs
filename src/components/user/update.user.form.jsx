@@ -1,6 +1,6 @@
-import { Button, Input, notification, Modal } from "antd"
+import { Input, notification, Modal } from "antd"
 import { useEffect, useState } from "react"
-import { createUserAPI, updateUserAPI } from "../../services/api.service"
+import { updateUserAPI } from "../../services/api.service"
 
 const UpdateUserModal = (props) => {
     const [fullName, setFullName] = useState()
@@ -35,8 +35,6 @@ const UpdateUserModal = (props) => {
                 description: JSON.stringify(response.message)
             })
         }
-
-        console.log(">>>Check info Name:", { fullName, email, password })
     }
 
     const resetAndCloseModel = () => {

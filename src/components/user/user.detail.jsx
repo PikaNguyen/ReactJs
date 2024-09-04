@@ -1,8 +1,9 @@
-import { Button, Drawer } from 'antd';
+import { Button, Drawer, notification } from 'antd';
 import { useState } from 'react';
+import { updateUserAvatarAPI, uploadFileImage } from '../../services/api.service';
 
 const UserDetail = (props) => {
-    const { dataUserDetail, setDataUserDetail, setOpenDataUserDetail, isOpenUserDetail } = props
+    const { dataUserDetail, setDataUserDetail, setOpenDataUserDetail, isOpenUserDetail, loadUser } = props
     const [selectedFile, setSelectedFile] = useState(null)
     const [preview, setPreview] = useState(null)
 
@@ -24,7 +25,41 @@ const UserDetail = (props) => {
             setPreview(URL.createObjectURL(file))
         }
     }
-    console.log(">>> Check file", preview)
+
+    const handleSaveImage = async () => {
+        //step 1: Upload file
+        const resUpload = await uploadFileImage(selectedFile, "avatar")
+        if (resUpload.data) {
+            const newAvatar = resUpload.data.fileUploaded
+            console.log(">>>Check resUpload", newAvatar)
+            //step 2: Update user
+            const updateAvatar = await updateUserAvatarAPI(dataUserDetail._id, dataUserDetail.fullName, dataUserDetail.phone, newAvatar)
+            if (updateAvatar.data) {
+                setOpenDataUserDetail(false)
+                setSelectedFile(null)
+                setPreview(null)
+                await loadUser()
+                notification.success({
+                    message: "Update avatar successfully",
+                    description: "Update anh thanh cong"
+                })
+            }
+            else {
+                notification.error({
+                    message: "Error updated image",
+                    description: JSON.stringify(resUpload.message)
+                })
+            }
+        } else {
+            notification.error({
+                message: "Error upload file",
+                description: JSON.stringify(resUpload.message)
+            })
+        }
+
+
+    }
+
     return (
 
         <Drawer
@@ -65,6 +100,7 @@ const UserDetail = (props) => {
                             borderRadius: "10px",
                             cursor: "pointer",
                             marginTop: "10px",
+                            marginBottom: "10px",
                             padding: "5px 10px",
                             background: "green"
                         }}
@@ -78,19 +114,25 @@ const UserDetail = (props) => {
                 </div>
 
                 {preview &&
-                    <div style={{
-                        width: "100px",
-                        height: "150px",
-                        border: "1px solid #ccc",
-                    }}>
-                        <img style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "contain",
+                    <>
+                        <div style={{
+                            width: "100px",
+                            height: "150px",
+                            border: "1px solid #ccc",
+                            marginBottom: "10px",
+                            marginTop: "10px"
+                        }}>
+                            <img style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "contain",
 
-                        }} src={preview} />
-                    </div>
-
+                            }} src={preview} />
+                        </div>
+                        <Button type='primary'
+                            onClick={() => handleSaveImage()}
+                        >Save</Button>
+                    </>
                 }
             </>
                 :

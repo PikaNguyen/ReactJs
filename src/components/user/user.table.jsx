@@ -6,12 +6,24 @@ import UserDetail from './user.detail.jsx';
 
 const UserTable = (props) => {
 
-    const { dataUsers, loadUser } = props
+    const { dataUsers, loadUser
+        , current, pageSize, total,
+        setCurrent, setPageSize
+    } = props
     const [isModalUpdate, setIsModalUpdate] = useState(false)
     const [dataUpdate, setDataUpdate] = useState(null)
     const [isOpenUserDetail, setOpenDataUserDetail] = useState(false)
     const [dataUserDetail, setDataUserDetail] = useState(null)
     const columns = [
+        {
+            title: "No.",
+            render: (_, record, index) => {
+                console.log(">>Check index: ", index)
+                return (
+                    <>{index + 1}</>
+                )
+            }
+        },
         {
             title: 'Id',
             dataIndex: '_id',
@@ -52,13 +64,25 @@ const UserTable = (props) => {
         },
 
     ];
+    const onChange = (pagination, filters, sorter, extra) => { };
 
     return (
         <>
             <Table
                 columns={columns}
                 dataSource={dataUsers}
-                rowKey={"_id"} />
+                rowKey={"_id"}
+                pagination={
+                    {
+                        current: current,
+                        pageSize: pageSize,
+                        showSizeChanger: true,
+                        total: total,
+                        showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
+                    }}
+                onChange={onChange}
+
+            />
             <UpdateUserModal
                 isModalUpdate={isModalUpdate}
                 setIsModalUpdate={setIsModalUpdate}

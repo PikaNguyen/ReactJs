@@ -18,9 +18,8 @@ const UserTable = (props) => {
         {
             title: "No.",
             render: (_, record, index) => {
-                console.log(">>Check index: ", index)
                 return (
-                    <>{index + 1}</>
+                    <>{(index + 1) + (current - 1) * pageSize}</>
                 )
             }
         },
@@ -64,7 +63,21 @@ const UserTable = (props) => {
         },
 
     ];
-    const onChange = (pagination, filters, sorter, extra) => { };
+    const onChange = (pagination, filters, sorter, extra) => {
+        if (pagination && pagination.current) {
+            if (+pagination.current !== +current) {
+                setCurrent(+pagination.current)
+            }
+        }
+
+        if (pagination && pagination.pageSize) {
+            if (+pagination.pageSize !== +pageSize) {
+                setPageSize(+pagination.pageSize)
+            }
+        }
+
+        console.log("<<>>>>> Check ", pagination, filters, sorter, extra)
+    };
 
     return (
         <>

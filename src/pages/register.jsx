@@ -1,6 +1,115 @@
+import { Button, Input, Form, notification } from "antd"
+import { registerUserAPI } from "../services/api.service"
+import { useNavigate } from "react-router-dom"
+
+
 const RegisterPage = () => {
+    const [form] = Form.useForm()
+    const navigate = useNavigate()
+
+    const onFinish = async (values) => {
+
+        //call api
+        const res = await registerUserAPI(
+            values.fullName,
+            values.email,
+            values.password,
+            values.phone
+        )
+        console.log("check response", res.data)
+        if (res.data) {
+            notification.success({
+                message: "Register user",
+                description: "Register successfully!"
+            })
+
+            navigate("/login")
+        }
+
+        else {
+            notification.error({
+                message: "Error Register user",
+                description: JSON.stringify(res.message)
+            })
+        }
+    }
     return (
-        <div>Register page</div>
+        <Form
+            form={form}
+            layout="vertical"
+            onFinish={onFinish}
+        //onFinishFailed={onFinishFailed}
+        >
+            <div style={{
+                margin: "50px",
+            }}>
+                <Form.Item
+                    label="Full name"
+                    name="fullName"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your full name!',
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    label="Email"
+                    name="email"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your email!',
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your password!',
+
+                        },
+                    ]}
+                >
+                    <Input.Password />
+                </Form.Item>
+                <Form.Item
+                    label="Phone number"
+                    name="phone"
+                    rules={[
+                        {
+                            pattern: new RegExp(/\d+/g),
+                            message: 'Please input your phone number!',
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+
+                <div>
+                    <Button
+                        onClick={() => form.submit()}
+                        type="primary">Register</Button>
+
+
+                    <Button onClick={() => {
+                        form.setFieldsValue({
+                            email: "DanChoi@gmail.com",
+                            fullName: "Asd"
+                        })
+                        console.log("Check form: ", form.getFieldsValue())
+                    }} >Test</Button>
+                </div>
+
+            </div>
+        </Form>
     )
 }
 

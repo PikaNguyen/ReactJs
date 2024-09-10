@@ -10,7 +10,6 @@ const createUserAPI = (fullName, email, password, phoneNumber) => {
     }
 
     return axios.post(URL_BACKEND, data)
-
 }
 
 const updateUserAPI = (_id, fullName, phoneNumber) => {
@@ -52,9 +51,21 @@ const updateUserAvatarAPI = (_id, fullName, phone, avatar) => {
     }
 
     return axios.put(URL_BACKEND, data)
+}
+
+const registerUserAPI = (fullName, email, password, phoneNumber) => {
+    const URL_BACKEND = "/api/v1/user/register"
+    const data = {
+        fullName: fullName,
+        email: email,
+        password: password,
+        phone: phoneNumber
+    }
+
+    return axios.post(URL_BACKEND, data)
 
 }
 
 export {
-    createUserAPI, updateUserAvatarAPI, fetchAllUsersApi, updateUserAPI, uploadFileImage
+    createUserAPI, registerUserAPI, updateUserAvatarAPI, fetchAllUsersApi, updateUserAPI, uploadFileImage
 }
